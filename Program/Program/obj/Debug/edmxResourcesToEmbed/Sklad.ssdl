@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище SkladModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ведомость прихода на склад">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Дата" Type="date" />
+    <Property Name="Контрагент" Type="int" />
+    <Property Name="Проведено" Type="bit" />
+    <Property Name="Склад" Type="int" />
+    <Property Name="Количество" Type="float" />
+    <Property Name="Сумма" Type="float" />
+  </EntityType>
+  <EntityType Name="Готовая_продукция">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Техкарта" Type="int" />
+    <Property Name="Товар" Type="int" />
+  </EntityType>
+  <EntityType Name="Группа контрагентов">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="50" />
+    <Property Name="Комментарий" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Группа товаров">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Единицы измерения">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Контрагент">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="30" />
+    <Property Name="Телефон" Type="varchar" MaxLength="11" />
+    <Property Name="Группа_контрагента" Type="int" />
+    <Property Name="Электронный_адрес" Type="varchar" MaxLength="30" />
+    <Property Name="Фактический_адрес" Type="varchar" MaxLength="70" />
+  </EntityType>
+  <EntityType Name="Материалы">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Техкарта" Type="int" />
+    <Property Name="Товар" Type="int" />
+  </EntityType>
+  <EntityType Name="Остатки">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Остаток" Type="float" />
+  </EntityType>
+  <EntityType Name="Пользователь">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Логин" Type="varchar" MaxLength="20" />
+    <Property Name="Пароль" Type="varchar" MaxLength="30" />
+    <Property Name="Право_доступа" Type="int" />
+    <Property Name="Фамилия" Type="varchar" MaxLength="20" />
+    <Property Name="Имя" Type="varchar" MaxLength="20" />
+    <Property Name="Отчество" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Склад">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar" MaxLength="50" />
+    <Property Name="Адрес" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Техкарта">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Затраты_на_производство" Type="float" />
+    <Property Name="Готовая_продукция" Type="int" />
+    <Property Name="Материалы" Type="int" />
+  </EntityType>
+  <EntityType Name="Товар">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="nvarchar" MaxLength="50" />
+    <Property Name="Единица_измерения" Type="int" />
+    <Property Name="Цена" Type="int" />
+    <Property Name="Артикул" Type="varchar" MaxLength="20" />
+    <Property Name="Группа_товара" Type="int" />
+  </EntityType>
+  <EntityType Name="Цена">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Вид цены" Type="varchar" MaxLength="20" />
+    <Property Name="Цена" Type="float" />
+  </EntityType>
+  <Association Name="FK_Готовая_продукция_Техкарта">
+    <End Role="Техкарта" Type="Self.Техкарта" Multiplicity="0..1" />
+    <End Role="Готовая_продукция" Type="Self.Готовая_продукция" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Техкарта">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Готовая_продукция">
+        <PropertyRef Name="Техкарта" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Готовая_продукция_Товар">
+    <End Role="Товар" Type="Self.Товар" Multiplicity="0..1" />
+    <End Role="Готовая_продукция" Type="Self.Готовая_продукция" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Товар">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Готовая_продукция">
+        <PropertyRef Name="Товар" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ГотоваяПродукция">
+    <End Role="Готовая_продукция" Type="Self.Готовая_продукция" Multiplicity="1" />
+    <End Role="Техкарта" Type="Self.Техкарта" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Готовая_продукция">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Техкарта">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ГруппаКонтрагентов">
+    <End Role="Группа контрагентов" Type="Self.Группа контрагентов" Multiplicity="0..1" />
+    <End Role="Контрагент" Type="Self.Контрагент" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Группа контрагентов">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Контрагент">
+        <PropertyRef Name="Группа_контрагента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ГруппаТоваров">
+    <End Role="Группа товаров" Type="Self.Группа товаров" Multiplicity="0..1" />
+    <End Role="Товар" Type="Self.Товар" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Группа товаров">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Товар">
+        <PropertyRef Name="Группа_товара" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ЕдиницаИзмерения">
+    <End Role="Единицы измерения" Type="Self.Единицы измерения" Multiplicity="0..1" />
+    <End Role="Товар" Type="Self.Товар" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Единицы измерения">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Товар">
+        <PropertyRef Name="Единица_измерения" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Материалы_Техкарта">
+    <End Role="Техкарта" Type="Self.Техкарта" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Материалы" Type="Self.Материалы" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Техкарта">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Материалы">
+        <PropertyRef Name="Техкарта" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Материалы_Товар">
+    <End Role="Товар" Type="Self.Товар" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Материалы" Type="Self.Материалы" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Товар">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Материалы">
+        <PropertyRef Name="Товар" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Приемка_Контрагент">
+    <End Role="Контрагент" Type="Self.Контрагент" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Ведомость прихода на склад" Type="Self.Ведомость прихода на склад" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Контрагент">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ведомость прихода на склад">
+        <PropertyRef Name="Контрагент" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Приемка_Склад">
+    <End Role="Склад" Type="Self.Склад" Multiplicity="0..1" />
+    <End Role="Ведомость прихода на склад" Type="Self.Ведомость прихода на склад" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Склад">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ведомость прихода на склад">
+        <PropertyRef Name="Склад" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Цена">
+    <End Role="Цена" Type="Self.Цена" Multiplicity="0..1" />
+    <End Role="Товар" Type="Self.Товар" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Цена">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Товар">
+        <PropertyRef Name="Цена" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище SkladModelContainer">
+    <EntitySet Name="Ведомость прихода на склад" EntityType="Self.Ведомость прихода на склад" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Готовая_продукция" EntityType="Self.Готовая_продукция" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Группа контрагентов" EntityType="Self.Группа контрагентов" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Группа товаров" EntityType="Self.Группа товаров" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Единицы измерения" EntityType="Self.Единицы измерения" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Контрагент" EntityType="Self.Контрагент" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Материалы" EntityType="Self.Материалы" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Остатки" EntityType="Self.Остатки" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Пользователь" EntityType="Self.Пользователь" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Склад" EntityType="Self.Склад" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Техкарта" EntityType="Self.Техкарта" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Товар" EntityType="Self.Товар" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Цена" EntityType="Self.Цена" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Готовая_продукция_Техкарта" Association="Self.FK_Готовая_продукция_Техкарта">
+      <End Role="Техкарта" EntitySet="Техкарта" />
+      <End Role="Готовая_продукция" EntitySet="Готовая_продукция" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Готовая_продукция_Товар" Association="Self.FK_Готовая_продукция_Товар">
+      <End Role="Товар" EntitySet="Товар" />
+      <End Role="Готовая_продукция" EntitySet="Готовая_продукция" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ГотоваяПродукция" Association="Self.FK_ГотоваяПродукция">
+      <End Role="Готовая_продукция" EntitySet="Готовая_продукция" />
+      <End Role="Техкарта" EntitySet="Техкарта" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ГруппаКонтрагентов" Association="Self.FK_ГруппаКонтрагентов">
+      <End Role="Группа контрагентов" EntitySet="Группа контрагентов" />
+      <End Role="Контрагент" EntitySet="Контрагент" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ГруппаТоваров" Association="Self.FK_ГруппаТоваров">
+      <End Role="Группа товаров" EntitySet="Группа товаров" />
+      <End Role="Товар" EntitySet="Товар" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ЕдиницаИзмерения" Association="Self.FK_ЕдиницаИзмерения">
+      <End Role="Единицы измерения" EntitySet="Единицы измерения" />
+      <End Role="Товар" EntitySet="Товар" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Материалы_Техкарта" Association="Self.FK_Материалы_Техкарта">
+      <End Role="Техкарта" EntitySet="Техкарта" />
+      <End Role="Материалы" EntitySet="Материалы" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Материалы_Товар" Association="Self.FK_Материалы_Товар">
+      <End Role="Товар" EntitySet="Товар" />
+      <End Role="Материалы" EntitySet="Материалы" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Приемка_Контрагент" Association="Self.FK_Приемка_Контрагент">
+      <End Role="Контрагент" EntitySet="Контрагент" />
+      <End Role="Ведомость прихода на склад" EntitySet="Ведомость прихода на склад" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Приемка_Склад" Association="Self.FK_Приемка_Склад">
+      <End Role="Склад" EntitySet="Склад" />
+      <End Role="Ведомость прихода на склад" EntitySet="Ведомость прихода на склад" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Цена" Association="Self.FK_Цена">
+      <End Role="Цена" EntitySet="Цена" />
+      <End Role="Товар" EntitySet="Товар" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,21 @@
+﻿<Window x:Class="Курсовой_проект.Technologist"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Курсовой_проект"
+        mc:Ignorable="d"
+        Title="Technologist"  Height="805" Width="1300" Icon="icon.png">
+    
+    <Grid Background="{StaticResource forGrid}">
+        <StackPanel VerticalAlignment="Top" Height="35" Orientation="Horizontal">
+            <Label Content="Здравствуйте" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center"/>
+            <TextBlock Name="TX_Name" Text="{Binding Фамилия}" HorizontalAlignment="Left" Margin="45,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBlock Name="TX_Name1" Text="{Binding Имя}" HorizontalAlignment="Left" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" />
+            <TextBlock Name="TX_2"  HorizontalAlignment="Left" Margin="550,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" />
+        </StackPanel>
+        <Frame x:Name="TexMain" Width="1080" MaxHeight="720" HorizontalAlignment="Right" Margin="0,35,0,11"/>
+        <Button x:Name="btnTexcard" Content="Техкарты" Margin="10,348,0,368.6"   Height="29" Click="btnTexcard_Click" HorizontalAlignment="Left" />
+        <Button x:Name="btnTexExample" Content="Техзадания" Margin="10,277,0,439.6" Height="29"   Click="btnTexExample_Click" HorizontalAlignment="Left" />
+    </Grid>
+</Window>

@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище SkladModelContainer" CdmEntityContainer="SkladEntities">
+    <EntitySetMapping Name="Ведомость_прихода_на_склад">
+      <EntityTypeMapping TypeName="SkladModel.Ведомость_прихода_на_склад">
+        <MappingFragment StoreEntitySet="Ведомость прихода на склад">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Дата" ColumnName="Дата" />
+          <ScalarProperty Name="Контрагент" ColumnName="Контрагент" />
+          <ScalarProperty Name="Проведено" ColumnName="Проведено" />
+          <ScalarProperty Name="Склад" ColumnName="Склад" />
+          <ScalarProperty Name="Количество" ColumnName="Количество" />
+          <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+          <ScalarProperty Name="Товар" ColumnName="Товар" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Группа_контрагентов">
+      <EntityTypeMapping TypeName="SkladModel.Группа_контрагентов">
+        <MappingFragment StoreEntitySet="Группа контрагентов">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+          <ScalarProperty Name="Комментарий" ColumnName="Комментарий" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Группа_товаров">
+      <EntityTypeMapping TypeName="SkladModel.Группа_товаров">
+        <MappingFragment StoreEntitySet="Группа товаров">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Единицы_измерения">
+      <EntityTypeMapping TypeName="SkladModel.Единицы_измерения">
+        <MappingFragment StoreEntitySet="Единицы измерения">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Контрагент">
+      <EntityTypeMapping TypeName="SkladModel.Контрагент">
+        <MappingFragment StoreEntitySet="Контрагент">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+          <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+          <ScalarProperty Name="Группа_контрагента" ColumnName="Группа_контрагента" />
+          <ScalarProperty Name="Электронный_адрес" ColumnName="Электронный_адрес" />
+          <ScalarProperty Name="Фактический_адрес" ColumnName="Фактический_адрес" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Остатки">
+      <EntityTypeMapping TypeName="SkladModel.Остатки">
+        <MappingFragment StoreEntitySet="Остатки">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Остаток" ColumnName="Остаток" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Пользователь">
+      <EntityTypeMapping TypeName="SkladModel.Пользователь">
+        <MappingFragment StoreEntitySet="Пользователь">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Логин" ColumnName="Логин" />
+          <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+          <ScalarProperty Name="Право_доступа" ColumnName="Право_доступа" />
+          <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Склад">
+      <EntityTypeMapping TypeName="SkladModel.Склад">
+        <MappingFragment StoreEntitySet="Склад">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+          <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Техкарта">
+      <EntityTypeMapping TypeName="SkladModel.Техкарта">
+        <MappingFragment StoreEntitySet="Техкарта">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Затраты_на_производство" ColumnName="Затраты_на_производство" />
+          <ScalarProperty Name="Готовая_продукция" ColumnName="Готовая_продукция" />
+          <ScalarProperty Name="Материал" ColumnName="Материал" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Товар">
+      <EntityTypeMapping TypeName="SkladModel.Товар">
+        <MappingFragment StoreEntitySet="Товар">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+          <ScalarProperty Name="Единица_измерения" ColumnName="Единица_измерения" />
+          <ScalarProperty Name="Цена" ColumnName="Цена" />
+          <ScalarProperty Name="Артикул" ColumnName="Артикул" />
+          <ScalarProperty Name="Группа_товара" ColumnName="Группа_товара" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Цена">
+      <EntityTypeMapping TypeName="SkladModel.Цена">
+        <MappingFragment StoreEntitySet="Цена">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Вид_цены" ColumnName="Вид цены" />
+          <ScalarProperty Name="Цена1" ColumnName="Цена" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ТехЗадание">
+      <EntityTypeMapping TypeName="SkladModel.ТехЗадание">
+        <MappingFragment StoreEntitySet="ТехЗадание">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Техкарта" ColumnName="Техкарта" />
+          <ScalarProperty Name="Склад_для_продукции" ColumnName="Склад_для_продукции" />
+          <ScalarProperty Name="Объем_производства" ColumnName="Объем_производства" />
+          <ScalarProperty Name="Склад_материала" ColumnName="Склад_материала" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

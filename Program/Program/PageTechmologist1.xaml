@@ -1,0 +1,113 @@
+﻿<Page x:Class="Курсовой_проект.PageTechmologist1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:command="clr-namespace:Курсовой_проект.Commands"
+      xmlns:c ="clr-namespace:Курсовой_проект.Model"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Курсовой_проект"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1080"
+      Title="PageTechmologist1"
+      Loaded="Page_Loaded">
+   
+    <Page.Resources>
+        <c:ListTechCard x:Key="listTechCard"   />
+        <c:ListCounterparty x:Key="listCount"   />
+        <c:ListSkladov x:Key="listSklad"   />
+        <c:ListTovarPriemka x:Key="listTovar"   />
+        
+    </Page.Resources>
+    <Page.CommandBindings>
+
+        <CommandBinding Command="Delete" Executed="DeleteCommandBinding_Executed" 
+                        CanExecute="DeleteCommandBinding_CanExecute"/>
+        <CommandBinding Command="Save" Executed="SaveCommandBinding_Executed" 
+                        CanExecute="SaveCommandBinding_CanExecute"/>
+        <CommandBinding Command="New" Executed="NewCommandBinding_Executed" 
+                        CanExecute="NewCommandBinding_CanExecute"/>
+        <CommandBinding Command="Undo" Executed="UndoCommandBinding_Executed" 
+                        CanExecute="UndoCommandBinding_CanExecuted"/>
+        <CommandBinding Command="{x:Static command:DataCommand.Edit}" 
+                        Executed="EditCommandBinding_Executed" 
+                        CanExecute="EditCommandBinding_CanExecute"/>
+    </Page.CommandBindings>
+    <Grid Background="{StaticResource forGrid}">
+
+        <ToolBar VerticalAlignment="Top" Height="35">
+            <Button Name="Undo" ToolTip="Отменить редактирование"  Command="Undo">
+                <Image Source="/Image/Undo.png" />
+            </Button>
+            <Button Name="Add" ToolTip="Добавить"   Command="New">
+                <Image Source="/Image/Add.png" />
+            </Button>
+            <Button Name="Edit" ToolTip="Редактировать" Command="{x:Static command:DataCommand.Edit}">
+                <Image Source="/Image/Edit.png" />
+            </Button>
+            <Button Name="Save" ToolTip="Сохранить" Command="Save">
+                <Image Source="/Image/Save.png" />
+            </Button>
+            <Button Name="Delete" ToolTip="Удалить" Command="{x:Static command:DataCommand.Delete}">
+                <Image Source="/Image/delete.png" />
+            </Button>
+        </ToolBar>
+        <DataGrid  CanUserDeleteRows="False"
+                  IsReadOnly="True" 
+                  
+                  AutoGenerateColumns="False" x:Name="DataGridTehcCard" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,0,0" Grid.RowSpan="2" Height="650" MaxWidth="690">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" />
+                <DataGridComboBoxColumn  x:Name="DataGridTech" Header="Тех. карта"                                       
+                                        SelectedValueBinding="{Binding Path=Техкарта,                 
+                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ItemsSource="{Binding Source={StaticResource listTechCard}}"
+                                        DisplayMemberPath="Id"
+                                        Width="200"   
+                                        SelectedValuePath="Id"
+                                        >
+                    
+                </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn  x:Name="DataGridContr" Header="Склад для продукции"                                       
+                                        SelectedValueBinding="{Binding Path=Склад_для_продукции,                 
+                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ItemsSource="{Binding Source={StaticResource listSklad}}"
+                                        DisplayMemberPath="Наименование"
+                                        Width="200"   
+                                        SelectedValuePath="Id"
+                                        />
+                <DataGridComboBoxColumn x:Name="DataGridSklad" Header="Склад материала"
+                                        ItemsSource="{Binding Source={StaticResource listSklad}}"
+                                        SelectedValueBinding="{Binding Path=Склад_материала,                 
+                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200"
+                                        DisplayMemberPath="Наименование"
+                                        SelectedValuePath="Id"/>
+
+                
+            </DataGrid.Columns>
+            
+        </DataGrid>
+        <Grid Margin="12,39,1,10" Width="371" Height="561" HorizontalAlignment="Right">
+            <Label Content="Поиск по Складу материала" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <ComboBox x:Name="MatSkladCombobox" HorizontalAlignment="Left"                       
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Наименование"
+                      ItemsSource="{Binding Source={StaticResource listSklad}}"
+                      VerticalAlignment="Top"
+                      FontSize="14" BorderBrush="White" Width="300" Margin="8,100,0,0" FontFamily="Arial"/>
+            <Label Content="Ввыберите Склад материала" HorizontalAlignment="Left" Margin="7,70,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <Button x:Name="btnFindSkladMat" Content="Поиск по Складу материала" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" FontSize="14" Width="200"  FontFamily="Arial" Height="30" Click="btnFindSkladMat_Click">
+                
+            </Button>
+            <Label Content="Поиск по Складу для продукции" HorizontalAlignment="Center" Margin="7,185,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <ComboBox x:Name="ProductSkladCombobox" HorizontalAlignment="Left"                       
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Наименование"
+                      ItemsSource="{Binding Source={StaticResource listSklad}}"
+                      VerticalAlignment="Top"
+                      FontSize="14" BorderBrush="White" Width="300" Margin="7,262,0,0" FontFamily="Arial"/>
+            <Label Content="Выберите Склад для продукции" HorizontalAlignment="Left" Margin="7,214,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <Button x:Name="btnFindSkladProduct" Content="Поиск по Складу для продукции" HorizontalAlignment="Left" Margin="10,313,0,0" VerticalAlignment="Top" FontSize="14" Width="200"  FontFamily="Arial" Height="30" Click="btnFindSkladProduct_Click" />
+
+        </Grid>
+    </Grid>
+</Page>

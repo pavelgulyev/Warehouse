@@ -1,0 +1,147 @@
+﻿<Page x:Class="Курсовой_проект.PriemkaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Курсовой_проект"
+      mc:Ignorable="d"
+      xmlns:command="clr-namespace:Курсовой_проект.Commands"
+      d:DesignHeight="700" d:DesignWidth="1080"
+      Title="Приёмка товара"
+      xmlns:c ="clr-namespace:Курсовой_проект.Model" 
+      Loaded="Page_Loaded">   
+    <Page.Resources>        
+        
+        <c:ListCounterparty x:Key="listCount"   />
+        <c:ListSkladov x:Key="listSklad"   />
+        <c:ListTovarPriemka x:Key="listTovar"   />
+        <DataTemplate x:Key="DateTemplate" >
+            <TextBlock Text="{Binding Дата,
+        StringFormat={}{0:dd\.}{0:MM\.}{0:yyyy}}"
+        VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="EditingDateTemplate">
+            <DatePicker SelectedDate="{Binding Дата, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
+        </DataTemplate>
+        
+    </Page.Resources>
+    
+    <Page.CommandBindings>
+
+        <CommandBinding Command="{x:Static command:DataCommand.Delete}" Executed="DeleteCommandBinding_Executed" 
+                        CanExecute="DeleteCommandBinding_CanExecute"/>
+        <CommandBinding Command="Save" Executed="SaveCommandBinding_Executed" 
+                        CanExecute="SaveCommandBinding_CanExecute"/>
+        <CommandBinding Command="New" Executed="NewCommandBinding_Executed" 
+                        CanExecute="NewCommandBinding_CanExecute"/>
+        <CommandBinding Command="Undo" Executed="UndoCommandBinding_Executed" 
+                        CanExecute="UndoCommandBinding_CanExecuted"/>
+        <CommandBinding Command="{x:Static command:DataCommand.Edit}" 
+                        Executed="EditCommandBinding_Executed" 
+                        CanExecute="EditCommandBinding_CanExecute"/>
+    </Page.CommandBindings>
+
+    <Grid Background="{StaticResource forGrid}">        
+        <ToolBar VerticalAlignment="Top" Height="35">
+            <Button Name="Undo" ToolTip="Отменить редактирование"  Command="Undo">
+                <Image Source="/Image/Undo.png" />
+            </Button>
+            <Button Name="Add" ToolTip="Добавить"   Command="New">
+                <Image Source="/Image/Add.png" />
+            </Button>
+            <Button Name="Edit" ToolTip="Редактировать" Command="{x:Static command:DataCommand.Edit}">
+                <Image Source="/Image/Edit.png" />
+            </Button>
+            <Button Name="Save" ToolTip="Сохранить" Command="Save">
+                <Image Source="/Image/Save.png" />
+            </Button>
+            <Button Name="Delete" ToolTip="Удалить" Command="{x:Static command:DataCommand.Delete}">
+                <Image Source="/Image/delete.png" />
+            </Button>
+
+        </ToolBar>
+        <DataGrid  CanUserDeleteRows="False"
+                  IsReadOnly="True" 
+                  AutoGenerateColumns="False" x:Name="DataGridPriemka" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,0,0" Grid.RowSpan="2" Height="650" MaxWidth="690">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" />
+                <DataGridTemplateColumn Header="Дата"  CellTemplate="{StaticResource DateTemplate}"                                     
+                                 CellEditingTemplate="{StaticResource EditingDateTemplate}"
+                                        Width="100" />
+                <DataGridComboBoxColumn  x:Name="DataGridContr" Header="Контрагент"                                       
+                                        SelectedValueBinding="{Binding Path=Контрагент,                 
+                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ItemsSource="{Binding Source={StaticResource listCount}}"
+                                        DisplayMemberPath="Наименование"
+                                        Width="150"   
+                                        SelectedValuePath="Id"
+                                        />               
+                <DataGridComboBoxColumn x:Name="DataGridSklad" Header="Склад"
+                                        ItemsSource="{Binding Source={StaticResource listSklad}}"
+                                        SelectedValueBinding="{Binding Path=Склад,                 
+                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                        DisplayMemberPath="Наименование"
+                                        SelectedValuePath="Id"/>
+                <DataGridComboBoxColumn x:Name="DataGridTovar" Header="Товар" 
+                                        ItemsSource="{Binding Source={StaticResource listTovar}}"
+                                        SelectedValueBinding="{Binding Path=Товар,                 
+                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="110"                                         
+                                        DisplayMemberPath="Наименование"
+                                        SelectedValuePath="Id"
+                                        />
+                <DataGridTextColumn Header="Количество, шт" 
+                                Binding="{Binding Количество, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                <DataGridTextColumn Header="Сумма, руб." 
+                                Binding="{Binding Сумма, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Margin="12,39,1,10" Width="371" Height="561" HorizontalAlignment="Right">
+            <Label Content="Поиск по Контрагенту" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <ComboBox x:Name="kontrCombobox" HorizontalAlignment="Left"                       
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Наименование"
+                      ItemsSource="{Binding Source={StaticResource listCount}}"
+                      VerticalAlignment="Top"
+                      FontSize="14" BorderBrush="White" Width="300" Margin="8,100,0,0" FontFamily="Arial"/>
+            <Label Content="Ввыберите Котрагента" HorizontalAlignment="Left" Margin="7,70,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <Button x:Name="btnFindContr" Content="Поиск по Контрагенту" HorizontalAlignment="Left" Margin="7,147,0,0" VerticalAlignment="Top" FontSize="14"  FontFamily="Arial" Height="30" Click="btnFindContr_Click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Width" 
+                              From="0" To="200" Duration="0:0:2"  />
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" 
+                              From="0" To="30" Duration="0:0:2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Label Content="Поиск по Дате" HorizontalAlignment="Center" Margin="7,185,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <DatePicker DisplayDate="2021-12-30" DisplayDateEnd="{x:Static sys:DateTime.Now}" x:Name="FindDate" HorizontalAlignment="Left" Margin="7,262,0,0" VerticalAlignment="Top" Height="28" Width="200" FontSize="16" FontFamily="Arial" IsTodayHighlighted="True"/>
+            <Label Content="Выберите дату" HorizontalAlignment="Left" Margin="7,214,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14"/>
+            <Button x:Name="btnFindDate" Content="Поиск по Дате" HorizontalAlignment="Left" Margin="7,313,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Arial" Height="30" Click="btnFindDate_Click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Width" 
+                              From="0" To="200" Duration="0:0:2"  />
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" 
+                              From="0" To="30" Duration="0:0:2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+        </Grid>
+    </Grid>
+
+</Page>
